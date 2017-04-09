@@ -14,3 +14,18 @@ spring:
   thymeleaf:
     prefix: classpath:/public/thymeleaf/
     cache: false
+  devtools:
+    restart:
+      exclude: com.adamzfc.domain.model
+mybatis:
+  type-aliases-package: com.adamzfc.domain.model
+mapper:
+  mappers: com.adamzfc.infrastructure.MyMapper
+  not-empty: false
+  identity: MYSQL
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: countSql
+

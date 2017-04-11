@@ -17,8 +17,13 @@ spring:
   devtools:
     restart:
       exclude: com.adamzfc.domain.model
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
 mybatis:
   type-aliases-package: com.adamzfc.domain.model
+
 mapper:
   mappers: com.adamzfc.infrastructure.MyMapper
   not-empty: false
@@ -28,4 +33,12 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: countSql
+flyway:
+  baseline-on-migrate: true
+  url: jdbc:mysql://localhost:3306/demo?characterEncoding=utf-8
+  user: root
+  password: 123456
+  locations: db/migration
+  enabled: true
+debug: true
 

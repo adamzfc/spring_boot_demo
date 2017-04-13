@@ -3,9 +3,8 @@ package com.adamzfc.security;
 import com.adamzfc.domain.model.User;
 import com.adamzfc.domain.repository.RoleRepository;
 import com.adamzfc.domain.repository.UserRepository;
-import org.apache.commons.logging.Log;
-import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +22,7 @@ import java.util.HashSet;
 @Service
 public class MyUserDetailService implements UserDetailsService {
 
-    private static final Logger LOGGER = Logger.getLogger(MyUserDetailService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MyUserDetailService.class);
 
     @Autowired
     protected UserRepository userRepository;
@@ -34,13 +33,12 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUserName(username);
-        LOGGER.debug(username + " " + user.getUsername());
+        logger.debug(username + " " + user.getUsername());
         if (user == null) {
             throw new UsernameNotFoundException("no user");
         }
-        SecurityUser securityUser = new SecurityUser(user.getId(), username, user.getPassword(),
+        return new SecurityUser(user.getId(), username, user.getPassword(),
                 !user.isDisabled(), true, true, true, grantedAuthorities(user.getId()), user.getSalt(), user.getEmail());
-        return securityUser;
     }
 
     protected Collection<GrantedAuthority> grantedAuthorities(int userId) {

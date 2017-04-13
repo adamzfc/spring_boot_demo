@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS USER (
   `salt`       VARCHAR(30) NOT NULL,
   `email`      VARCHAR(30) NOT NULL,
   `disabled`   BOOL        NOT NULL DEFAULT FALSE,
-  `createTime` DATETIME    NOT NULL,
-  `lastTime`   DATETIME             DEFAULT NULL,
+  `create_time` DATETIME    NOT NULL,
+  `last_time`   DATETIME             DEFAULT NULL,
   PRIMARY KEY (`ID`)
 );
 
@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS ROLE (
 # INSERT INTO ROLE (name) VALUE ('ADMIN');
 # INSERT INTO ROLE (name) VALUE ('USER');
 
-# INSERT INTO USER (ID, username, password, salt, email, createTime)
+# INSERT INTO USER (ID, username, password, salt, email, create_time)
 #   value(1, 'root', 'root', 'root', 'root@root.com', NOW())

@@ -23,6 +23,8 @@ spring:
 
 mybatis:
   type-aliases-package: com.adamzfc.domain.model
+  configuration:
+    use-actual-param-name: true
 
 mapper:
   mappers: com.adamzfc.infrastructure.MyMapper

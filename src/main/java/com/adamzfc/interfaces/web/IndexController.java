@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by adamzfc on 4/7/17.
  */
 @Controller
+@RequestMapping("/")
 public class IndexController {
 
     @RequestMapping("/")

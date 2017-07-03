@@ -8,7 +8,12 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'com.h2database:h2:1.4.191'
     }
+
+}
+plugins {
+    id "org.flywaydb.flyway" version "4.2.0"
 }
 
 apply plugin: 'java'
@@ -23,6 +28,12 @@ repositories {
     mavenCentral()
 }
 
+flyway {
+    url = 'jdbc:mysql://localhost:3306/demo?characterEncoding=utf-8&serverTimezone=UTC'
+    user = 'root'
+    password = '123456'
+}
+
 
 dependencies {
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0')
@@ -33,7 +44,7 @@ dependencies {
     compile('org.springframework.session:spring-session')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.flywaydb:flyway-core')
+//    compile('org.flywaydb:flyway-core')
     runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

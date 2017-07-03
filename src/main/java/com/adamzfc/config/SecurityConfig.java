@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .and().logout().logoutUrl("/");
+                .and().logout().logoutUrl("/user/logout");
 
 //        http.authorizeRequests()
 //                .anyRequest().fullyAuthenticated()

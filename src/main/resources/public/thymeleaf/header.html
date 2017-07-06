@@ -29,7 +29,8 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="one">
                     <a th:href="@{/user/profile}">
-                        <span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span th:text="${user}?${user.username}"></span>
+                        <!--<span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span th:text="${user}?${user.username}"></span>-->
+                        <span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;<span th:text="${user.username}"></span>
                     </a>
                 </li>
                 <li class="two">

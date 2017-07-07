@@ -10,11 +10,11 @@ import java.util.Collection;
  * Created by adamzfc on 4/8/17.
  */
 public class SecurityUser extends User {
-    private int uid;
+    private String uid;
     private String salt;
     private String email;
 
-    public SecurityUser(int uid, String username, String password, boolean enabled, boolean accountNonExpired,
+    public SecurityUser(String uid, String username, String password, boolean enabled, boolean accountNonExpired,
                         boolean credentialsNonExpired, boolean accountNonLocked,
                         Collection<? extends GrantedAuthority> authorities, String salt, String email) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
@@ -23,7 +23,7 @@ public class SecurityUser extends User {
         this.email = email;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 

@@ -9,7 +9,7 @@ public class BaseEntity {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     @Transient
     private Integer page = 1;
@@ -17,11 +17,11 @@ public class BaseEntity {
     @Transient
     private Integer rows = 10;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

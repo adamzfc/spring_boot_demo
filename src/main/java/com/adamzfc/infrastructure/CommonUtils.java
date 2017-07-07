@@ -1,5 +1,7 @@
 package com.adamzfc.infrastructure;
 
+import org.springframework.beans.BeanUtils;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -13,5 +15,13 @@ public class CommonUtils {
         final PrintWriter pw = new PrintWriter(sw, true);
         throwable.printStackTrace(pw);
         return sw.getBuffer().toString();
+    }
+
+    public static void copeProperties(Object from,Object dest){
+        try {
+            BeanUtils.copyProperties(from, dest);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -41,7 +41,7 @@ public class MyUserDetailService implements UserDetailsService {
                 !user.isDisabled(), true, true, true, grantedAuthorities(user.getId()), user.getSalt(), user.getEmail());
     }
 
-    protected Collection<GrantedAuthority> grantedAuthorities(int userId) {
+    protected Collection<GrantedAuthority> grantedAuthorities(String userId) {
 //        List<Role> roles = roleRepository.getRoles(userId);
 //        if (CollectionUtils.isEmpty(roles)) {
 //            return new ArrayList<>();

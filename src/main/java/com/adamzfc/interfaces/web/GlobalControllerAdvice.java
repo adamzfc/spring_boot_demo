@@ -1,12 +1,17 @@
 package com.adamzfc.interfaces.web;
 
+import com.adamzfc.application.MenuService;
+import com.adamzfc.security.SecurityUser;
+import com.adamzfc.security.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -20,15 +25,15 @@ import java.util.Date;
 import static com.adamzfc.infrastructure.CommonUtils.getStackTrace;
 
 @ControllerAdvice
-public class GlobalExceptionHandlingControllerAdvice {
+public class GlobalControllerAdvice {
     private Logger logger;
 
-    public GlobalExceptionHandlingControllerAdvice() {
+    public GlobalControllerAdvice() {
         logger = LoggerFactory.getLogger(getClass());
     }
 
-    //    @Autowired
-//    protected MenuService menuService;
+    @Autowired
+    private MenuService menuService;
 
     public static final String DEFAULT_ERROR_VIEW = "error";
 
@@ -52,14 +57,14 @@ public class GlobalExceptionHandlingControllerAdvice {
         return mav;
     }
 
-//    @ModelAttribute
-//    public void addCommonModel(Model model, HttpServletRequest request) {
-//        SecurityUser user = SecurityUtil.getUser();
-//        if (user != null) {
-//            model.addAttribute("user", user);
-//            model.addAttribute("navs", menuService.getNavMenus(user.getUid()));
-//        }
-//    }
+    @ModelAttribute
+    public void addCommonModel(Model model, HttpServletRequest request) {
+        SecurityUser user = SecurityUtil.getUser();
+        if (user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("navs", menuService.getNavMenus(user.getUid()));
+        }
+    }
 
 
 }

@@ -23,9 +23,7 @@ public class MenuService {
     }
 
     public Menu create(Menu menu) {
-        Assert.hasText(menu.getId(), "menu need a id");
-        Assert.hasText(menu.getLabel(), "menu need a label");
-//        menuRepository.add(menu);
+        validate(menu);
         menuRepository.insert(menu);
         return menu;
     }
@@ -44,5 +42,23 @@ public class MenuService {
             list = menuRepository.getNavMenus(uid);
         }
         return (List<Menu>) TreeModel.buildTree(list);
+    }
+
+    public void delete(String id) {
+        menuRepository.remove(id);
+    }
+
+    public void switchStatus(String menu, boolean disable) {
+        menuRepository.switchStatus(menu, disable?1:0);
+    }
+
+    public void modify(Menu menu) {
+        validate(menu);
+        menuRepository.updateByPrimaryKey(menu);
+    }
+
+    private void validate(Menu menu) {
+        Assert.hasText(menu.getId(), "menu need a id");
+        Assert.hasText(menu.getLabel(), "menu need a label");
     }
 }

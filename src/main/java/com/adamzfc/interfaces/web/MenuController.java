@@ -3,13 +3,12 @@ package com.adamzfc.interfaces.web;
 import com.adamzfc.application.MenuService;
 import com.adamzfc.interfaces.facade.assembler.MenuAssembler;
 import com.adamzfc.interfaces.facade.command.MenuCreateCommand;
+import com.adamzfc.interfaces.facade.command.MenuUpdateCommond;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by adamzfc on 2017/7/7.
@@ -47,5 +46,23 @@ public class MenuController {
         }
         model.addAttribute("api", url);
         return "menu/form";
+    }
+
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void delete(@PathVariable("id") String id) {
+        menuService.delete(id);
+    }
+
+    @RequestMapping(value = "/{id}/status", method = RequestMethod.PUT)
+    @ResponseBody
+    public void switchStatus(@PathVariable("id") String id, @RequestParam("disable") boolean disable) {
+        menuService.switchStatus(id,disable);
+    }
+
+    @RequestMapping(value = "/{id}/modify", method = RequestMethod.POST)
+    public String modify(@PathVariable("id") String id, MenuUpdateCommond menu) {
+        menuService.modify(MenuAssembler.updateCommendToDomain(id, menu));
+        return "redirect:/menu";
     }
 }

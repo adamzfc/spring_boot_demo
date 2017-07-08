@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +37,19 @@ public class GlobalControllerAdvice {
     private MenuService menuService;
 
     public static final String DEFAULT_ERROR_VIEW = "error";
+
+    @ExceptionHandler
+    public void handleControllerException(HttpServletRequest request, HttpServletResponse response, Throwable ex) throws IOException {
+        ex.printStackTrace();
+        String ajax = request.getHeader("X-Requested-With");
+        response.setCharacterEncoding("utf-8");
+        if (StringUtils.isEmpty(ajax)) {
+            response.sendRedirect("/error");
+        } else {
+            response.getWriter().println("出错了:" + ex.getMessage());
+        }
+
+    }
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {

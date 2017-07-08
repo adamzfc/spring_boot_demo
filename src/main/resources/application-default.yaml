@@ -14,12 +14,14 @@ spring:
   thymeleaf:
     prefix: classpath:/public/thymeleaf/
     cache: false
-  devtools:
-    restart:
-      exclude: com.adamzfc.domain.model
+
   jpa:
     hibernate:
       ddl-auto: validate
+
+myconfig:
+  jwt:
+    header: jheader
 
 mybatis:
   type-aliases-package: com.adamzfc.domain.model

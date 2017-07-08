@@ -45,6 +45,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.apache.commons:commons-lang3:3.6')
+    compile('io.jsonwebtoken:jjwt:0.7.0')
 //    compile('org.flywaydb:flyway-core')
     runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')

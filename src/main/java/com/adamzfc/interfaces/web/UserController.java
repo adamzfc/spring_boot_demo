@@ -62,7 +62,7 @@ public class UserController {
     public String form(@RequestParam(value = "id",required = false)String id, Model model){
         String api="/user/add";
         if(!StringUtils.isEmpty(id)){
-            model.addAttribute("acount",UserAssembler.domainToDto(userService.get(id)));
+            model.addAttribute("account",UserAssembler.domainToDto(userService.get(id)));
             api="/user/"+id+"/modify";
         }
         model.addAttribute("api",api);

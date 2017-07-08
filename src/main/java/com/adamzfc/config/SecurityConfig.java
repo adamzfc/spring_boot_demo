@@ -96,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterAt(urlSecurityInterceptor(), UrlSecurityInterceptor.class);
         http.formLogin().loginProcessingUrl("/login").loginPage("/to-login")
                 .defaultSuccessUrl("/").successHandler(new AuthenticationSuccessHandler());
-        http.logout().logoutSuccessHandler(new LogoutSuccessHandler());
+        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")).logoutSuccessHandler(new LogoutSuccessHandler());
         http.exceptionHandling().authenticationEntryPoint(new MyAuthenticationEntryPoint())
                 .accessDeniedHandler(new MyAccessDeniedHandler());
 
@@ -118,10 +118,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/**/*.js", "/**/*.js.map", "/**/*.ts", "/**/*.css", "/**/*.css.map", "/**/*.png", "/**/*.gif", "/**/*.jpg", "/**/*.fco", "/**/*.woff", "/**/*.woff2", "/**/*.font", "/**/*.svg", "/**/*.ttf", "/**/*.pdf","/*.ico", "/admin/api/**", "/404", "/401","/403", "/error");
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("ADMIN");
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().withUser("user").password("user").roles("ADMIN");
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -3,7 +3,9 @@ package com.adamzfc.application;
 import com.adamzfc.domain.model.User;
 import com.adamzfc.domain.repository.UserRepository;
 import com.adamzfc.security.MyMd5PasswordEncoder;
+import com.adamzfc.security.SecurityUtil;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -41,7 +43,20 @@ public class UserService {
     }
 
     public void modify(User user) {
-        userRepository.updateByPrimaryKey(user);
+        Assert.hasText(user.getId());
+        User old = get(user.getId());
+        if (StringUtils.isNotBlank(user.getUsername())) {
+            old.setUsername(user.getUsername());
+        } else {
+            user.setUsername(SecurityUtil.getUser().getUsername());
+        }
+        if (StringUtils.isNotBlank(user.getPassword())) {
+            old.setPassword(md5PasswordEncoder.encodePassword(user.getPassword(), old.getSalt()));
+        }
+        if (StringUtils.isNotBlank(user.getEmail())) {
+            old.setEmail(user.getEmail());
+        }
+        userRepository.updateByPrimaryKey(old);
     }
 
     public void switchStatus(String id, boolean disable) {

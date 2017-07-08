@@ -1,5 +1,6 @@
 package com.adamzfc.security;
 
+import com.adamzfc.domain.model.Role;
 import com.adamzfc.domain.model.User;
 import com.adamzfc.domain.repository.RoleRepository;
 import com.adamzfc.domain.repository.UserRepository;
@@ -12,9 +13,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by adamzfc on 4/8/17.
@@ -42,13 +46,13 @@ public class MyUserDetailService implements UserDetailsService {
     }
 
     protected Collection<GrantedAuthority> grantedAuthorities(String userId) {
-//        List<Role> roles = roleRepository.getRoles(userId);
-//        if (CollectionUtils.isEmpty(roles)) {
-//            return new ArrayList<>();
-//        }
+        List<Role> roles = roleRepository.getRoles(userId);
+        if (CollectionUtils.isEmpty(roles)) {
+            return new ArrayList<>();
+        }
         Collection<GrantedAuthority> authorities = new HashSet<>();
-//        roles.stream().filter(role -> !role.isDisabled()).forEach((role ->
-//            authorities.add(new SimpleGrantedAuthority(role.getName()))));
+        roles.stream().filter(role -> !role.isDisabled()).forEach((role ->
+            authorities.add(new SimpleGrantedAuthority(role.getName()))));
         authorities.add(new SimpleGrantedAuthority("ADMIN"));
         return authorities;
     }

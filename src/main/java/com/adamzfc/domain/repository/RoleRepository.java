@@ -14,5 +14,8 @@ import java.util.List;
 @Mapper
 public interface RoleRepository extends MyMapper<Role> {
     @Select("SELECT * FROM ROLE R JOIN USER_ROLE UR ON R.ID=UR.ROLE_ID WHERE UR.UID=#{userId}")
-    List<Role> getRoles(@Param("userId") int userId);
+    List<Role> getRoles(@Param("userId") String userId);
+
+    @Select("SELECT * FROM role")
+    List<Role> list();
 }

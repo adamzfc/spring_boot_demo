@@ -1,5 +1,6 @@
 package com.adamzfc.domain.model;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 /**
@@ -16,9 +17,15 @@ public class User extends BaseEntity {
 
     private boolean disabled;
 
+    @Column(name = "createTime")
     private Date createTime;
 
+    @Column(name = "lastTime")
     private Date lastTime;
+
+    public boolean isRoot(){
+        return "root".equals(username);
+    }
 
     public String getUsername() {
         return username;

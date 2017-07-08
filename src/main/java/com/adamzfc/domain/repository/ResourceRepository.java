@@ -27,7 +27,11 @@ public interface ResourceRepository extends MyMapper<Resource> {
 //
 //    List<Resource> listByRole(String roleId);
 //
-    @Select("SELECT * FROM RESOURCE WHERE disable = 0")
+    @Select("SELECT * FROM RESOURCE WHERE disabled = 0")
     List<Resource> getEnableResources();
 
+    @Select("SELECT re.* FROM  role_resource rr" +
+            " JOIN resource re ON re.id=rr.resource_id" +
+            " WHERE rr.role_id = #{id}")
+    List<Resource> listByRole(String id);
 }

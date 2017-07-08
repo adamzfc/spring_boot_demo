@@ -19,6 +19,6 @@ public class UserRestController {
 
     @RequestMapping("/")
     public List<User> getUsers() {
-        return userRepository.selectAll();
+        return userRepository.list();
     }
 }

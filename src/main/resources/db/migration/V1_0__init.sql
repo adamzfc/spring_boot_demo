@@ -111,6 +111,17 @@ CREATE TABLE `resource` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='权限表';
 
+-- ----------------------------
+-- Table structure for role_resource
+-- ----------------------------
+DROP TABLE IF EXISTS `role_resource`;
+CREATE TABLE `role_resource` (
+  `role_id` varchar(50) DEFAULT NULL,
+  `resource_id` varchar(50) DEFAULT NULL,
+  KEY `roleid_rr` (`role_id`) USING BTREE,
+  KEY `resource_rr` (`resource_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- spring-session
 CREATE TABLE SPRING_SESSION (
 	SESSION_ID CHAR(36),

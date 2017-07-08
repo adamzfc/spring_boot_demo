@@ -1,15 +1,16 @@
 package com.adamzfc.domain.model;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * Created by adamzfc on 4/8/17.
  */
 public class BaseEntity {
     @Id
-    @Column(name = "Id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     @Transient
     private Integer page = 1;

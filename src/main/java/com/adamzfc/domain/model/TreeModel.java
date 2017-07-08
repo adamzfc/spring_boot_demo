@@ -1,5 +1,8 @@
 package com.adamzfc.domain.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,21 +11,30 @@ import java.util.stream.Collectors;
  * Created by adamzfc on 2017/7/6.
  */
 public class TreeModel {
+    @Id
+    @Column
     private String id;
 
+    @Column
     private String label;
 
+    @Column
     private String path="0";  //父节点的路径与父节点的id路径，用","分开，0表示父节点是根节点
 
+    @Column(name = "`order`")
     private int order=1;  //排序
 
+    @Column
     private int type;//扩展字段。菜单类型，供不同业务区分
 
+    @Column
     private String style;//样式，方便ui展现
 
     /** 状态 是否禁用*/
+    @Column
     private boolean disabled;
 
+    @Transient
     private List<? extends TreeModel> childNodes=new ArrayList<>();
 
     public String getId() {

@@ -25,7 +25,8 @@ public class MenuService {
     public Menu create(Menu menu) {
         Assert.hasText(menu.getId(), "menu need a id");
         Assert.hasText(menu.getLabel(), "menu need a label");
-        menuRepository.add(menu);
+//        menuRepository.add(menu);
+        menuRepository.insert(menu);
         return menu;
     }
 

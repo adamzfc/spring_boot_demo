@@ -5,6 +5,7 @@ import com.adamzfc.domain.model.Menu;
 import com.adamzfc.infrastructure.MyMapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -13,17 +14,7 @@ import java.util.List;
  * Created by adamzfc on 2017/7/7.
  */
 @Mapper
-public interface MenuRepository {
-
-//    @Insert("INSERT menu (id, label, path, `level`, `order`, `url`," +
-//            " `type`, `style`, `disable`)" +
-//            " VALUES(#{menu.getId()}, #{menu.getLabel()}, #{menu.getPath}," +
-//            " #{menu.getLevel()}, #{menu.getOrder()}, #{menu.getUrl()}, " +
-//            " #{menu.getType()}, #{menu.getStyle()}, #{menu.isDisabled()})")
-@Insert("INSERT menu (id, label, path, `level`, `order`, `url`," +
-        " `type`, `style`, `disable`)" +
-        " VALUES(#{menu})")
-    void add(Menu menu);
+public interface MenuRepository extends MyMapper<Menu> {
 
     @Select("SELECT * FROM menu where id = #{id}")
     Menu get(String id);

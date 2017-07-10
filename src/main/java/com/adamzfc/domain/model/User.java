@@ -1,11 +1,14 @@
 package com.adamzfc.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.Column;
 import java.util.Date;
 
 /**
  * Created by adamzfc on 4/8/17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User extends BaseEntity {
     private String username;
 

@@ -16,6 +16,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -64,10 +65,14 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
         }
 
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        if(authentication==null || authentication instanceof AnonymousAuthenticationToken){
+        if(
+//                !((HttpServletRequest) request).getServletPath().startsWith("/api/") &&
+                authentication==null || authentication instanceof AnonymousAuthenticationToken){
             //没有认证的，直接就结束
             throw new AuthenticationCredentialsNotFoundException("please login");
         }
+
+//        fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
 
         String currentUser = authentication.getName();
         if ("root".equalsIgnoreCase(currentUser)) {//不处理root账户的授权

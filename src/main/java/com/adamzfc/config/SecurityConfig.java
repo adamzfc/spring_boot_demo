@@ -168,6 +168,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             response.setCharacterEncoding("utf-8");
             if (isAjax(request)) {
                 response.getWriter().println("请登录");
+            } else if (request.getServletPath().startsWith("/api/")){
+                response.getWriter().println("{\"code\":10002,\"msg\":\"please login\"}");
             } else {
                 response.sendRedirect("/to-login");
             }

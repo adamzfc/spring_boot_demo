@@ -14,9 +14,10 @@ buildscript {
 }
 plugins {
     id "org.flywaydb.flyway" version "4.2.0"
+//    id 'io.franzbecker.gradle-lombok' version '1.8'
+    id 'java'
 }
 
-apply plugin: 'java'
 //apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
@@ -34,6 +35,10 @@ flyway {
     password = '123456'
 }
 
+//lombok {
+//    version = "1.16.18"
+//    sha256 = ""
+//}
 
 dependencies {
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0')
@@ -46,6 +51,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.apache.commons:commons-lang3:3.6')
     compile('io.jsonwebtoken:jjwt:0.7.0')
+    compile('org.projectlombok:lombok:1.16.18')
 //    compile('org.flywaydb:flyway-core')
     runtime('org.springframework.boot:spring-boot-devtools')
     testCompile('org.springframework.boot:spring-boot-starter-test')

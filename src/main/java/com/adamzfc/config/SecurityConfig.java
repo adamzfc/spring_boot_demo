@@ -1,5 +1,7 @@
 package com.adamzfc.config;
 
+import com.adamzfc.infrastructure.exceptions.AppException;
+import com.adamzfc.infrastructure.exceptions.Error;
 import com.adamzfc.security.JwtAuthenticationTokenFilter;
 import com.adamzfc.security.MyMd5PasswordEncoder;
 import com.adamzfc.security.MyUserDetailService;
@@ -182,7 +184,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             if (isAjax(request)) {
                 response.getWriter().println("请登录");
             } else if (request.getServletPath().startsWith("/api/")){
-                response.getWriter().println("{\"code\":10002,\"msg\":\"please login\"}");
+                response.getWriter().println("{\"success\":\"false\",\"code\":10001,\"msg\":\"please login\"}");
             } else {
                 response.sendRedirect("/to-login");
             }

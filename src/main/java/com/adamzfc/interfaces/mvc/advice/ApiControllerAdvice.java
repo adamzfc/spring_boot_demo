@@ -6,6 +6,7 @@ import com.adamzfc.infrastructure.exceptions.AppException;
 import com.adamzfc.infrastructure.exceptions.Error;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,13 @@ public class ApiControllerAdvice {
         response.setStatus(500);
         log.error(ex.getMessage(), ex);
         return appExceptionToResult(new AppException(Error.UNKNOWN_EXCEPTION, getStackTrace(ex)));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public Result badCredentialsException(BadCredentialsException ex, HttpServletResponse response) {
+        response.setStatus(401);
+        log.error(ex.getMessage(), ex);
+        return appExceptionToResult(new AppException(Error.USERNAME_OR_PASSWORD_ERROR));
     }
 
     private Result appExceptionToResult(AppException ex) {

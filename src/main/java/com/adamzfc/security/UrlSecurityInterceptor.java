@@ -64,10 +64,16 @@ public class UrlSecurityInterceptor extends FilterSecurityInterceptor {
             return;
         }
 
+        if (((HttpServletRequest) request).getServletPath().equals("/api/auth")) {
+            fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
+            return;
+        }
+
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         if(
 //                !((HttpServletRequest) request).getServletPath().startsWith("/api/") &&
-                authentication==null || authentication instanceof AnonymousAuthenticationToken){
+                authentication==null || authentication instanceof AnonymousAuthenticationToken
+                        || !authentication.isAuthenticated()){
             //没有认证的，直接就结束
             throw new AuthenticationCredentialsNotFoundException("please login");
         }

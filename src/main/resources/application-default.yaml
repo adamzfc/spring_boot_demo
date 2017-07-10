@@ -22,6 +22,10 @@ spring:
 myconfig:
   jwt:
     header: jheader
+    tokenHead: tkhead
+    expiration: 604800
+    secret: mysecret
+
 
 mybatis:
   type-aliases-package: com.adamzfc.domain.model

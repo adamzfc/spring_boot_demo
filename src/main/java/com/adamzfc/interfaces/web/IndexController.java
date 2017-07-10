@@ -12,8 +12,7 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index() {
-        throw new RuntimeException("msg");
-//        return "index";
+        return "index";
     }
 
 //    @RequestMapping("/login")

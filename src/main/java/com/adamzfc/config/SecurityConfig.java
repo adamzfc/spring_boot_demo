@@ -1,5 +1,6 @@
 package com.adamzfc.config;
 
+import com.adamzfc.security.JwtAuthenticationTokenFilter;
 import com.adamzfc.security.MyMd5PasswordEncoder;
 import com.adamzfc.security.MyUserDetailService;
 import com.adamzfc.security.UrlSecurityInterceptor;
@@ -30,6 +31,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -64,6 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public JwtAuthenticationTokenFilter authenticationTokenFilter() throws Exception {
+        return new JwtAuthenticationTokenFilter();
+    }
+
+    @Bean
     protected AccessDecisionManager accessDecisionManager() {
         RoleVoter roleVoter = new RoleVoter();
         roleVoter.setRolePrefix("");
@@ -75,6 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.cors().disable();
         http.headers().disable();
         http.jee().disable();
@@ -92,7 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .usernameParameter("username")
 //                .passwordParameter("password")
 //                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout")).logoutSuccessUrl("/login");;
-
+        http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterAt(urlSecurityInterceptor(), UrlSecurityInterceptor.class);
         http.formLogin().loginProcessingUrl("/login").loginPage("/to-login")
                 .defaultSuccessUrl("/").successHandler(new AuthenticationSuccessHandler());
@@ -125,13 +133,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(md5PasswordEncoder);
         provider.setUserDetailsService(userDetailService);
         ReflectionSaltSource saltSource = new ReflectionSaltSource();
         saltSource.setUserPropertyToUse("getSalt");
         provider.setSaltSource(saltSource);
-        auth.authenticationProvider(provider);
+        return provider;
     }
 
     //由于springboot默认会将所要的servlet,filter,listenr等标准servlet组件自动加入到servlet的过滤器链中，自定义的UrlSecurityInterceptor只希望加入security的过滤器链，中，所以这里配置不向servlet容器中注册

@@ -1,7 +1,10 @@
 package com.adamzfc.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Created by adamzfc on 2017/7/10.

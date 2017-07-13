@@ -18,4 +18,8 @@ public class AccountService {
     public List<Account> list() {
         return accountRepository.selectAll();
     }
+
+    public int insert(Account account) {
+        return accountRepository.insert(account);
+    }
 }

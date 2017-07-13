@@ -30,6 +30,6 @@ public class CustomerResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         Result result = new Result();
         result.setSuccess(true);
         result.setData(body);
-        return body;
+        return result;
     }
 }

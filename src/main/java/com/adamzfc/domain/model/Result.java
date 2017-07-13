@@ -17,4 +17,13 @@ public class Result {
     private String devMsg;
     private int code;
     private Object data;
+
+    public Result() {
+    }
+
+    public Result(boolean success, String msg, int code) {
+        this.success = success;
+        this.msg = msg;
+        this.code = code;
+    }
 }
